@@ -3,11 +3,13 @@ using EmployeeAdminPortal.Models;
 using EmployeeAdminPortal.Models.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EmployeeAdminPortal.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize] 
     public class EmployeesController : ControllerBase
     {
         private readonly ApplicationDbContext dbContext;
@@ -39,6 +41,7 @@ namespace EmployeeAdminPortal.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IActionResult AddEmployee(addEmployeeDto addEmployeeDto)
         {
             var employee = new Employee()
@@ -48,6 +51,15 @@ namespace EmployeeAdminPortal.Controllers
                 Phone = addEmployeeDto.Phone,
                 Salary = addEmployeeDto.Salary
             };
+
+            if (dbContext.Employees.Any(e => e.Email == addEmployeeDto.Email))
+                return BadRequest("Email already exists");
+
+            if(dbContext.Employees.Any(e => e.Name == addEmployeeDto.Name))
+                return BadRequest("Name already exists");
+
+
+
             dbContext.Employees.Add(employee);
             dbContext.SaveChanges();
 
@@ -56,6 +68,7 @@ namespace EmployeeAdminPortal.Controllers
 
         [HttpPut]
         [Route("{id:guid}")]
+        [Authorize(Roles = "Admin")]
         public IActionResult UpdateEmployeeById(Guid id, UpdateEmployeeDto updateEmployeeDto)
         {
             var employee = dbContext.Employees.Find(id);
@@ -78,6 +91,7 @@ namespace EmployeeAdminPortal.Controllers
 
         [HttpDelete]
         [Route("{id:guid}")]
+        [Authorize(Roles = "Admin")]
         public IActionResult DeleteEmployeeById(Guid id)
         {
             var employee = dbContext.Employees.Find(id);
