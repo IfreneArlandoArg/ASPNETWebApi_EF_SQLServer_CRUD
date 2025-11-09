@@ -21,7 +21,7 @@ builder.Services.AddSwaggerGen(options =>
         Scheme = "Bearer",
         BearerFormat = "JWT",
         In = ParameterLocation.Header,
-        Description = "Enter 'Bearer' [space] and then your valid token in the text input below."
+        Description = "Enter the valid token in the text input below."
     });
     options.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
@@ -75,7 +75,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthentication(); // Add authentication middleware
+app.UseAuthentication(); 
 app.UseAuthorization();
 
 app.MapControllers();

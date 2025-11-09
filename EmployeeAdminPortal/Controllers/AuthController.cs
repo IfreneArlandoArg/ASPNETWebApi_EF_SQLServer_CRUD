@@ -37,7 +37,9 @@ namespace EmployeeAdminPortal.Controllers
         private bool ValidateUser(string username, string password, out User _user)
         {
             var user = _dbContext.Users.SingleOrDefault(u => u.Username == username);
+            
             _user = user;
+
 
             return user == null ? false : user.PasswordHash == Encryptor.HashSHA256(password);
         }
