@@ -1,13 +1,13 @@
 # Employee Admin Portal API
 
-An ASP.NET Core Web API project for managing employees, featuring CRUD operations using Entity Framework Core and SQL Server.
+An ASP.NET Core Web API project for managing employees and users, featuring authentication, role-based authorization, and CRUD operations using  Entity Framework Core and SQL Server.
 
 ## Features
 - RESTful API for employee management
 - Entity Framework Core integration
 - SQL Server database
 - Swagger/OpenAPI documentation
-- Example WeatherForecast endpoint
+
 
 ## Technologies Used
 - ASP.NET Core 8.0
@@ -45,6 +45,13 @@ An ASP.NET Core Web API project for managing employees, featuring CRUD operation
 
 ## API Endpoints
 
+### Users
+- `GET /api/users` - List all users
+- `POST /api/users` - Add a new user
+
+### Auth
+- `POST /api/auth/login` - Authenticate user and receive JWT token
+
 ### Employees
 - `GET /api/employees` - List all employees
 - `GET /api/employees/{id}` - Get employee by ID
@@ -52,8 +59,7 @@ An ASP.NET Core Web API project for managing employees, featuring CRUD operation
 - `PUT /api/employees/{id}` - Update employee by ID
 - `DELETE /api/employees/{id}` - Delete employee by ID
 
-### WeatherForecast
-- `GET /weatherforecast` - Example endpoint
+
 
 ## Project Structure
 
@@ -61,6 +67,7 @@ An ASP.NET Core Web API project for managing employees, featuring CRUD operation
 - `EmployeeAdminPortal/Models/Entities` - Entity models
 - `EmployeeAdminPortal/Data` - EF Core DbContext
 - `EmployeeAdminPortal/Migrations` - Database migrations
+- `EmployeeAdminPortal/Services` - Utility services (e.g., password hashing)
 
 ## License
 
